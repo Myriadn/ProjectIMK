@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1331257213588149512}
   - component: {fileID: 8008353463942525776}
   - component: {fileID: 8273196763982971502}
+  - component: {fileID: -5233784689348876358}
   m_Layer: 0
   m_Name: Kekuatan_P
   m_TagString: Untagged
@@ -110,3 +111,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-5233784689348876358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293622164173006622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99acf1edbc7e98c4282cfa9527770da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

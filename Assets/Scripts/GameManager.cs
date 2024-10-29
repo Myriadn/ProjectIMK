@@ -4,7 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public Hostile[] hostiles;
     public Player player;
-    public Transform pellets;
+    public Transform papers;
+
+    public int hostileMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
     private void Start()
@@ -28,9 +30,9 @@ public class GameManager : MonoBehaviour
 
     private void NewRound()
     {
-        foreach (Transform pellet in this.pellets)
+        foreach (Transform paper in this.papers)
         {
-            pellet.gameObject.SetActive(true);
+            paper.gameObject.SetActive(true);
         }
 
         ResetState();
@@ -38,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     private void ResetState()
     {
+        ResetHostileMultiplier();
+
         for (int i = 0; i < this.hostiles.Length; i++)
         {
             this.hostiles[i].gameObject.SetActive(true);
@@ -68,7 +72,9 @@ public class GameManager : MonoBehaviour
 
     public void HostileEaten(Hostile hostile)
     {
-        SetScore(this.score + hostile.points);
+        int points = hostile.points * this.hostileMultiplier;
+        SetScore(this.score + points);
+        this.hostileMultiplier++;
     }
 
     public void PlayerEaten()
@@ -83,5 +89,45 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    public void PaperEaten(Paper paper)
+    {
+        paper.gameObject.SetActive(false);
+
+        SetScore(this.score + paper.points);
+
+        if (!HasRemainingPaper())
+        {
+            this.player.gameObject.SetActive(false);
+            Invoke(nameof(ResetState), 3.0f);
+        }
+    }
+
+    public void PowerPaperEaten(PowerPaper paper)
+    {
+        // Tugas : mengubah state hostile.
+
+        PaperEaten(paper);
+        CancelInvoke();
+        Invoke(nameof(ResetHostileMultiplier), paper.duration);
+    }
+
+    private bool HasRemainingPaper()
+    {
+        foreach (Transform paper in this.papers)
+        {
+            if (paper.gameObject.activeSelf)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void ResetHostileMultiplier()
+    {
+        this.hostileMultiplier = 1;
     }
 }
