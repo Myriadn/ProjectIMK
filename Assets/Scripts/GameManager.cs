@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < this.hostiles.Length; i++)
         {
-            this.hostiles[i].gameObject.SetActive(true);
+            this.hostiles[i].ResetState();
         }
 
-        this.player.gameObject.SetActive(true);
+        this.player.ResetState();
     }
 
     private void GameOver()
@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerEaten()
     {
+        this.player.gameObject.SetActive(false);
+
         SetLives(this.lives - 1);
 
         if (this.lives > 0)
@@ -106,7 +108,10 @@ public class GameManager : MonoBehaviour
 
     public void PowerPaperEaten(PowerPaper paper)
     {
-        // Tugas : mengubah state hostile.
+        for (int i = 0; i < this.hostiles.Length; i++)
+        {
+            this.hostiles[i].frightened.Enable(paper.duration);
+        }
 
         PaperEaten(paper);
         CancelInvoke();

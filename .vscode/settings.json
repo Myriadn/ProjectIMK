@@ -53,5 +53,5 @@
     "Temp/": true
   },
   "dotnet.preferCSharpExtension": true,
-  "cSpell.words": ["Behaviour", "Mathf", "Raycast", "rigidbody"]
+  "cSpell.words": ["Behaviour", "Lerp", "Mathf", "Raycast", "rigidbody"]
 }

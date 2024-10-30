@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
         ResetState();
     }
 
-    private void ResetState()
+    public void ResetState()
     {
         this.speedMultiplier = 1.0f;
         this.direction = this.initialDirection;
