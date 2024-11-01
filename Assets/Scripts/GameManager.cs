@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameOver GameOverScreen;
+    public GameWin GameWinScreen;
     public Hostile[] hostiles;
     public Player player;
     public Transform papers;
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     private void Start()
     {
+        Time.timeScale = 1f;
         NewGame();
     }
 
@@ -50,8 +53,11 @@ public class GameManager : MonoBehaviour
         this.player.ResetState();
     }
 
-    private void GameOver()
+    public void GameOver()
     {
+        GameOverScreen.Setup();
+        Time.timeScale = 0f;
+
         for (int i = 0; i < this.hostiles.Length; i++)
         {
             this.hostiles[i].gameObject.SetActive(false);
@@ -101,6 +107,9 @@ public class GameManager : MonoBehaviour
 
         if (!HasRemainingPaper())
         {
+            GameWinScreen.Setup();
+            Time.timeScale = 0f;
+
             this.player.gameObject.SetActive(false);
             Invoke(nameof(ResetState), 3.0f);
         }
